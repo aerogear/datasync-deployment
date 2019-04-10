@@ -158,7 +158,7 @@ parameters:
   displayName: S2I Builder Image
   description: The S2I builder image to use when building this application
   required: true
-  value: rhoar-nodejs:8.x
+  value: nodejs:10
 - name: SOURCE_REPOSITORY_REF
   displayName: Git Reference
   description: Set this to a branch name, tag or other ref of your repository if you
