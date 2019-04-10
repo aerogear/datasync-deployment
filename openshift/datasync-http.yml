@@ -28,8 +28,8 @@ objects:
   spec:
     ports:
     - name: http
-      port: 8080
-      targetPort: 8080
+      port:  ${{PORT}}
+      targetPort:  ${{PORT}}
     selector:
       name: "${NAME}"
 - kind: Route
@@ -116,7 +116,7 @@ objects:
         - name: "${NAME}"
           image: " "
           ports:
-          - containerPort: 8080
+          - containerPort:  ${{PORT}}
           resources:
             limits:
               memory: "${MEMORY_LIMIT}"
@@ -127,11 +127,6 @@ parameters:
   description: The name assigned to all of the frontend objects defined in this template.
   required: true
   value: data-sync-app
-- name: NAMESPACE
-  displayName: Namespace
-  description: The OpenShift Namespace where the ImageStream resides.
-  required: true
-  value: openshift
 - name: MEMORY_LIMIT
   displayName: Memory Limit
   description: Maximum amount of memory the container can use.
@@ -156,6 +151,10 @@ parameters:
   description: Set this to the relative path to your project if it is not in the root
     of your repository.
   value: 'examples'
+- name: PORT
+  displayName: Service port
+  description: Port number used by application
+  value: '4000'
 - name: APPLICATION_DOMAIN
   displayName: Application Hostname
   description: The exposed hostname that will route to the Node.js service, if left
