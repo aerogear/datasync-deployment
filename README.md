@@ -21,6 +21,7 @@ For usage please refer to https://github.com/nodeshift/centos7-s2i-nodejs
 - Showcase app (`datasync-showcase.json`)
 Full End to End Demo of the Sync Platform utilizing
 PostgreSQL and additional PV for file storage.
+Server side requires client application available in https://github.com/aerogear/ionic-showcase
 
 
 
