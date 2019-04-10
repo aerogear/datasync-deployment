@@ -5,7 +5,20 @@ kind: Template
 labels:
   template: ionic-showcase-server
 metadata:
-  name: ionic-showcase-server
+  name: Mobile Developer Services DataSync Demo Server
+  annotations:
+    openshift.io/display-name: Mobile Developer Services Data Sync Example
+    description: Mobile Developer Services DataSync Example Server
+    tags: sync, mobile, nodejs
+    iconClass: icon-nodejs
+    openshift.io/long-description: |-
+        OpenShift template for Data Sync Server
+        and PostgreSQL database width persistent storage.
+        To get more information, visit https://github.com/aerogear/ionic-showcase/
+    openshift.io/provider-display-name: Red Hat, Inc.
+    openshift.io/documentation-url: https://github.com/aerogear/datasync-deployment
+    openshift.io/support-url: https://access.redhat.com
+    template.openshift.io/bindable: 'false'
 objects:
 - apiVersion: v1
   kind: Secret
@@ -17,10 +30,9 @@ objects:
       template.openshift.io/expose-password: "{.data['database-password']}"
       template.openshift.io/expose-username: "{.data['database-user']}"
       description: |-
-        OpenShift template for GraphQL Server + PostgresQL DB Service with persistent storage.
-
-        It's meant to be used with Ionic Showcase Application
-        To get more information, visit https://github.com/aerogear/ionic-showcase/tree/master/server
+        OpenShift template for Data Sync Server
+        and PostgreSQL database width persistent storage.
+        To get more information, visit https://github.com/aerogear/ionic-showcase/
     name: "${DATABASE_SERVICE_NAME}"
   stringData:
     database-name: "${POSTGRESQL_DATABASE}"
