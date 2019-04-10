@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: datasync-server
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: datasync-server
+    spec:
+      containers:
+      - name: datasync-server-container
+        image: datasync-server:v1
+        ports:
+        - containerPort: 8080
