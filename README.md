@@ -14,11 +14,11 @@ For example Dockerfiles please check https://github.com/CloudNativeJS/docker
 
 ## OpenShift Templates
 
-- Http Server s2i (`datasync-http.json`)
+- Http Server s2i (`datasync-http.yml`)
 Template provisions server only that can be used as gateway for other services or connect to already running database solution.
 For usage please refer to https://github.com/nodeshift/centos7-s2i-nodejs
 
-- Showcase app (`datasync-showcase.json`)
+- Showcase app (`datasync-showcase.yml`)
 Full End to End Demo of the Sync Platform utilizing
 PostgreSQL and additional PV for file storage.
 Server side requires client application available in https://github.com/aerogear/ionic-showcase
