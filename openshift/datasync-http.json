@@ -4,7 +4,7 @@
     "metadata": {
       "name": "datasync-http",
       "annotations": {
-        "openshift.io/display-name": "Mobile Developer Services DataSync",
+        "openshift.io/display-name": "Mobile Developer Services Data Sync",
         "description": "Mobile Developer Services DataSync template",
         "tags": "sync, mobile, nodejs",
         "iconClass": "icon-nodejs",
