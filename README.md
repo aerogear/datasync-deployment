@@ -16,6 +16,7 @@ For example Dockerfiles please check https://github.com/CloudNativeJS/docker
 
 - Http Server s2i (`datasync-http.json`)
 Template provisions server only that can be used as gateway for other services or connect to already running database solution.
+For usage please refer to https://github.com/nodeshift/centos7-s2i-nodejs
 
 - Showcase app (`datasync-showcase.json`)
 Full End to End Demo of the Sync Platform utilizing
