@@ -4,11 +4,11 @@
     "metadata": {
       "name": "datasync-http",
       "annotations": {
-        "openshift.io/display-name": "DataSync OpenShift Template",
-        "description": "AeroGear DataSync template",
+        "openshift.io/display-name": "Mobile Developer Services DataSync",
+        "description": "Mobile Developer Services DataSync template",
         "tags": "sync, mobile, nodejs",
         "iconClass": "icon-nodejs",
-        "openshift.io/long-description": "This template builds Node.js based application integrating with AeroGear DataSync",
+        "openshift.io/long-description": "This template builds Node.js based applications integration with DataSync.",
         "openshift.io/provider-display-name": "Red Hat, Inc.",
         "openshift.io/documentation-url": "https://github.com/aerogear/datasync-deployment",
         "openshift.io/support-url": "https://access.redhat.com",
@@ -218,7 +218,7 @@
         "displayName": "Name",
         "description": "The name assigned to all of the frontend objects defined in this template.",
         "required": true,
-        "value": "data-sync-http"
+        "value": "data-sync-app"
       },
       {
         "name": "NAMESPACE",
