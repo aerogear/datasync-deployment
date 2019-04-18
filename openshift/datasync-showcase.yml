@@ -5,7 +5,7 @@ kind: Template
 labels:
   template: ionic-showcase-server
 metadata:
-  name: Mobile Developer Services DataSync Demo Server
+  name: mobile-developer-services-datasync-demo-server
   annotations:
     openshift.io/display-name: Mobile Developer Services Data Sync Example
     description: Mobile Developer Services DataSync Example Server
