@@ -7,8 +7,8 @@ labels:
 metadata:
   name: mobile-developer-services-datasync-demo-server
   annotations:
-    openshift.io/display-name: Mobile Developer Services Data Sync Example
-    description: Mobile Developer Services DataSync Example Server
+    openshift.io/display-name: Mobile Developer Services Data Sync Showcase
+    description: Mobile Developer Services Showcase Server connecting to Postgres Database
     tags: sync, mobile, nodejs
     iconClass: icon-nodejs
     openshift.io/long-description: |-
