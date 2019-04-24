@@ -8,7 +8,7 @@ metadata:
   name: datasync-showcase-server
   annotations:
     openshift.io/display-name: Data Sync Showcase 
-    description: Mobile Developer Services DataSync Showcase Server
+    description: Data Sync Showcase Server
     tags: sync, mobile, nodejs
     iconClass: icon-nodejs
     openshift.io/long-description: |-
