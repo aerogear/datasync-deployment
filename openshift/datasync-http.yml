@@ -2,9 +2,9 @@
 kind: Template
 apiVersion: v1
 metadata:
-  name: datasync-http
+  name: datasync-server-app
   annotations:
-    openshift.io/display-name: Mobile Developer Services Data Sync Gateway
+    openshift.io/display-name: Data Sync App
     description: Mobile Developer Services DataSync template
     tags: sync, mobile, nodejs
     iconClass: icon-nodejs
@@ -16,8 +16,8 @@ metadata:
     template.openshift.io/bindable: 'false'
 message: 'The following service(s) have been created in your project: ${NAME}.'
 labels:
-  template: data-sync-http
-  app: data-sync-http
+  template: data-sync-server-app
+  app: data-sync-server-app
 objects:
 - kind: Service
   apiVersion: v1
