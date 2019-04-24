@@ -4,7 +4,7 @@ apiVersion: v1
 metadata:
   name: datasync-http
   annotations:
-    openshift.io/display-name: Mobile Developer Services Data Sync
+    openshift.io/display-name: Mobile Developer Services Data Sync Gateway
     description: Mobile Developer Services DataSync template
     tags: sync, mobile, nodejs
     iconClass: icon-nodejs
