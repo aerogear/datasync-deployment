@@ -5,10 +5,10 @@ kind: Template
 labels:
   template: ionic-showcase-server
 metadata:
-  name: mobile-developer-services-datasync-demo-server
+  name: datasync-showcase-server
   annotations:
-    openshift.io/display-name: Mobile Developer Services Data Sync Showcase
-    description: Mobile Developer Services Showcase Server connecting to Postgres Database
+    openshift.io/display-name: Data Sync Showcase 
+    description: Mobile Developer Services DataSync Showcase Server
     tags: sync, mobile, nodejs
     iconClass: icon-nodejs
     openshift.io/long-description: |-
