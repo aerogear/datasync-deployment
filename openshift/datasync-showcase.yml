@@ -11,7 +11,7 @@ metadata:
     description: |-
         This template allows for the deployment of the Data Sync Example Showcase App.
         The Data Sync Example Showcase App contains an example Node.js server implementation that 
-        connects to the Postgres Database. Deployed server can be used in Ionic Showcase application.
+        connects to a PostgreSQL Database. The deployed App can be used with the Ionic Showcase application.
         For more information, see https://github.com/aerogear/ionic-showcase/
     tags: sync, mobile, nodejs
     iconClass: icon-nodejs
