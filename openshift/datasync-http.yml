@@ -5,11 +5,10 @@ metadata:
   name: datasync-server-app
   annotations:
     openshift.io/display-name: Data Sync App
-    description: Mobile Developer Services DataSync template
+    description: Template allows to deploy DataSync Server application from source code
     tags: sync, mobile, nodejs
     iconClass: icon-nodejs
-    openshift.io/long-description: This template builds Node.js based applications
-      integration with Data Sync.
+    openshift.io/long-description: Template allows to deploy DataSync Server application from source code
     openshift.io/provider-display-name: Red Hat, Inc.
     openshift.io/documentation-url: https://github.com/aerogear/datasync-deployment
     openshift.io/support-url: https://access.redhat.com
