@@ -10,7 +10,7 @@ metadata:
     openshift.io/display-name: Data Sync Showcase 
     description: |-
         This template allows for the deployment of the Data Sync Example Showcase App.
-        Showcase application contains example Node.js server implementation that 
+        The Data Sync Example Showcase App contains an example Node.js server implementation that 
         connects to the Postgres Database. Deployed server can be used in Ionic Showcase application.
         To get more information, visit https://github.com/aerogear/ionic-showcase/
     tags: sync, mobile, nodejs
