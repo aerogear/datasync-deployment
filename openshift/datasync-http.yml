@@ -6,7 +6,7 @@ metadata:
   annotations:
     openshift.io/display-name: Data Sync App
     description: |-
-          Template allows to deploy DataSync Server application from source code.
+This template allows for the deployment of the DataSync Server App from source code.
           Template using s2i Node.js image to build DataSync Application for both developement and production usage. If you looking to try out DataSync please check Showcase App template.
     tags: sync, mobile, nodejs
     iconClass: icon-nodejs
