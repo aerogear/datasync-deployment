@@ -8,15 +8,15 @@ metadata:
   name: datasync-showcase-server
   annotations:
     openshift.io/display-name: Data Sync Showcase 
-    description: Template allows to deploy Data Sync Example Showcase application 
+    description: |-
+        Template allows to deploy Data Sync Example Showcase application.
+        Showcase application contains example Node.js server implementation that 
+        connects to the Postgres Database. Deployed server can be used in Ionic Showcase application.
+        To get more information, visit https://github.com/aerogear/ionic-showcase/
     tags: sync, mobile, nodejs
     iconClass: icon-nodejs
-    openshift.io/long-description: |-
-        OpenShift template for Data Sync Server
-        and PostgreSQL database width persistent storage.
-        To get more information, visit https://github.com/aerogear/ionic-showcase/
     openshift.io/provider-display-name: Red Hat, Inc.
-    openshift.io/documentation-url: https://github.com/aerogear/datasync-deployment
+    openshift.io/documentation-url: https://docs.aerogear.org/aerogear/latest/data-sync.html#sync-server-openshift
     openshift.io/support-url: https://access.redhat.com
     template.openshift.io/bindable: 'false'
 objects:
