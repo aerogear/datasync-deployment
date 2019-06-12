@@ -320,34 +320,6 @@ objects:
     to:
       kind: Service
       name: "${SERVER_SERVICE_NAME}"
-- apiVersion: enmasse.io/v1beta1
-  kind: AddressSpace
-  metadata:
-    name: showcase
-  spec:
-    type: brokered
-    plan: brokered-single-broker
-- apiVersion: enmasse.io/v1beta1
-  kind: Address
-  metadata:
-      name: showcase.tasks # must have be in format <address space name>.<queuename>
-  spec:
-      address: tasks
-      type: topic
-      plan: brokered-topic
-- apiVersion: user.enmasse.io/v1beta1
-  kind: MessagingUser
-  metadata:
-    name: showcase.showcase-messaging-user
-  spec:
-    username: showcase-messaging-user
-    authentication:
-      type: password
-      # create your own password with echo <password> | base64
-      password: UGFzc3dvcmQx # (base64 encoded) Password1
-    authorization:
-      - addresses: ["*"]
-        operations: ["send", "recv"]
 parameters:
 - description: Maximum amount of memory the container can use.
   displayName: Memory Limit
