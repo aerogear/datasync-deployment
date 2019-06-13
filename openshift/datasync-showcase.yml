@@ -338,13 +338,12 @@ objects:
 - apiVersion: user.enmasse.io/v1beta1
   kind: MessagingUser
   metadata:
-    name: showcase.showcase-messaging-user
+    name: showcase.${AMQ_USERNAME}
   spec:
-    username: showcase-messaging-user
+    username: ${AMQ_USERNAME}
     authentication:
       type: password
-      # create your own password with echo <password> | base64
-      password: UGFzc3dvcmQx # (base64 encoded) Password1
+      password: ${AMQ_USER_PASSWORD}
     authorization:
       - addresses: ["*"]
         operations: ["send", "recv"]
@@ -385,3 +384,11 @@ parameters:
   displayName: Ionic Server Service name
   name: SERVER_SERVICE_NAME
   value: ionic-showcase-server
+- description: Messaging user created in AMQ Online. The showcase server will authenticate with AMQ as this user.
+  displayName: AMQ Messaging User Name
+  name: AMQ_USERNAME
+  value: showcase-messaging-user
+- description: Create your own password with `$ echo <password> | base64` - the default password is Password1
+  displayName: AMQ Messaging User Password
+  name: AMQ_USER_PASSWORD
+  value: UGFzc3dvcmQx # (base64 encoded) Password1
