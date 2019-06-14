@@ -3,11 +3,11 @@
 apiVersion: v1
 kind: Template
 labels:
-  template: ionic-showcase-server
+  template: ionic-showcase-server-community
 metadata:
-  name: datasync-showcase-server
+  name: datasync-showcase-server-community
   annotations:
-    openshift.io/display-name: Data Sync Showcase 
+    openshift.io/display-name: Data Sync Showcase (Community)
     description: |-
         This template allows for the deployment of the Data Sync Example Showcase App.
         The Data Sync Example Showcase App contains an example Node.js server implementation that 
@@ -258,6 +258,8 @@ objects:
         - env:
             - name: DB_HOSTNAME
               value: "${DATABASE_SERVICE_NAME}"
+            - name: MQTT_HOST
+              value: mosquitto-mqtt-broker
           image: ionic-showcase-server:latest
           name: ionic-showcase-server
           ports:
@@ -320,6 +322,66 @@ objects:
     to:
       kind: Service
       name: "${SERVER_SERVICE_NAME}"
+
+- kind: DeploymentConfig
+  apiVersion: v1
+  name: mosquitto-mqtt-broker
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: ionic-showcase-server
+    name: mosquitto-mqtt-broker
+  spec:
+    replicas: 1
+    selector:
+      app: ionic-showcase-server
+      deploymentconfig: mosquitto-mqtt-broker
+    strategy:
+      resources: {}
+    template:
+      metadata:
+        annotations:
+          openshift.io/generated-by: OpenShiftNewApp
+        creationTimestamp: null
+        labels:
+          app: ionic-showcase-server
+          deploymentconfig: mosquitto-mqtt-broker
+      spec:
+        containers:
+          - name: mosquitto-mqtt-broker
+            image: eclipse-mosquitto:latest
+            ports:
+              - containerPort: 1883
+                protocol: TCP
+    strategy: 
+      type: Rolling
+    paused: false 
+    revisionHistoryLimit: 2 
+    minReadySeconds: 0
+
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: ionic-showcase-server
+    name: mosquitto-mqtt-broker
+  spec:
+    ports:
+    - name: 1883-tcp
+      port: 1883
+      protocol: TCP
+      targetPort: 1883
+    selector:
+      app: ionic-showcase-server
+      deploymentconfig: mosquitto-mqtt-broker
+  status:
+    loadBalancer: {}
+
 parameters:
 - description: Maximum amount of memory the container can use.
   displayName: Memory Limit
