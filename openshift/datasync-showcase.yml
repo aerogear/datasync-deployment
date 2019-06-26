@@ -230,6 +230,12 @@ objects:
   status:
     lastVersion: 0
 - apiVersion: v1
+  kind: Secret
+  metadata:
+    name: showcase-mqtt-credentials
+  data:
+    MQTT_PASSWORD: ${AMQ_USER_PASSWORD}
+- apiVersion: v1
   kind: DeploymentConfig
   metadata:
     annotations:
@@ -258,6 +264,17 @@ objects:
         - env:
             - name: DB_HOSTNAME
               value: "${DATABASE_SERVICE_NAME}"
+            - name: MQTT_USERNAME
+              value: "${AMQ_USERNAME}"
+            - name: MQTT_PORT
+              value: "5671"
+            - name: MQTT_PROTOCOL
+              value: "tls"
+            - name: MQTT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: showcase-mqtt-credentials
+                  key: MQTT_PASSWORD
           image: ionic-showcase-server:latest
           name: ionic-showcase-server
           ports:
