@@ -20,7 +20,7 @@ Prerequisites
 There are a number of Data Sync OpenShift Templates available.
 
 * [Data Sync App](https://github.com/aerogear/datasync-deployment/blob/master/openshift/datasync-http.yml) - Deploys a custom built Data Sync Application. Uses Node s2i to build the image from source code.
-* [Data Sync Showcase](https://github.com/aerogear/datasync-deployment/blob/master/openshift/datasync-showcase.yml) - Deploys the server component from the [Ionic Showcase](https://github.com/aerogear/ionic-showcase) application. This includes a postgres storage, a Persistent Volume for file storage, and resources in AMQ Online for subscriptions.`
+* [Data Sync Showcase](https://github.com/aerogear/datasync-deployment/blob/master/openshift/datasync-showcase.yml) - Deploys the server component from the [Ionic Showcase](https://github.com/aerogear/ionic-showcase) application. This includes a postgres storage, a Persistent Volume for file storage, and resources in AMQ Online for subscriptions.
 * [Data Sync Showcase Community](https://github.com/aerogear/datasync-deployment/blob/master/openshift/datasync-showcase-community.yml) - Deploys the server component from the [Ionic Showcase](https://github.com/aerogear/ionic-showcase) application , but replaces Red Hat AMQ Online with [Mosquitto](https://mosquitto.org/) as the MQTT broker.
 
 The templates can be installed into a given namespace.
@@ -32,7 +32,7 @@ oc create -f https://raw.githubusercontent.com/aerogear/datasync-deployment/mast
 ```
 
 # Deploying the Showcase Server from the Service Catalog
-``
+
 Prerequisites
 
 * Using an Integreatly/Red Hat Managed Integration (RHMI) cluster
