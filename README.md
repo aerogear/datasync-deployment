@@ -20,18 +20,18 @@ Prerequisites
 There are a number of Data Sync OpenShift Templates available.
 
 * [Data Sync App](https://github.com/aerogear/datasync-deployment/blob/master/openshift/datasync-http.yml) - Deploys a custom built Data Sync Application. Uses Node s2i to build the image from source code.
-* [Data Sync Showcase](https://github.com/aerogear/datasync-deployment/blob/master/openshift/datasync-showcase.yml) - Deploys the server component from the [Ionic Showcase](https://github.com/aerogear/ionic-showcase) application. This includes a postgres storage, a Persistent Volume for file storage, and resources in AMQ Online for subscriptions.
-* [Data Sync Showcase Community](https://github.com/aerogear/datasync-deployment/blob/master/openshift/datasync-showcase-community.yml) - Deploys the server component from the [Ionic Showcase](https://github.com/aerogear/ionic-showcase) application , but replaces Red Hat AMQ Online with [Mosquitto](https://mosquitto.org/) as the MQTT broker.
+* [Data Sync Showcase](https://github.com/aerogear/datasync-deployment/blob/master/openshift/datasync-showcase.yml) - Deploys the server component from the [Ionic Showcase](https://github.com/aerogear/ionic-showcase) application. This includes a postgres storage, a Persistent Volume for file storage, and a Mosca MQTT Broker for a quick and simple getting started experience.
+* [Data Sync Showcase With AMQ](https://github.com/aerogear/datasync-deployment/blob/master/openshift/datasync-showcase-amq.yml) - Deploys the server component from the [Ionic Showcase](https://github.com/aerogear/ionic-showcase) application. This includes a postgres storage, a Persistent Volume for file storage, and resources in AMQ Online for subscriptions.
 
 The templates can be installed into a given namespace.
 
 ```
 oc create -f https://raw.githubusercontent.com/aerogear/datasync-deployment/master/openshift/datasync-http.yml -n <namespace>
 oc create -f https://raw.githubusercontent.com/aerogear/datasync-deployment/master/openshift/datasync-showcase.yml -n <namespace>
-oc create -f https://raw.githubusercontent.com/aerogear/datasync-deployment/master/openshift/datasync-showcase-community.yml -n <namespace>
+oc create -f https://raw.githubusercontent.com/aerogear/datasync-deployment/master/openshift/datasync-showcase-amq.yml -n <namespace>
 ```
 
-# Deploying the Showcase Server from the Service Catalog
+# Deploying the Showcase Server with AMQ
 
 Prerequisites
 
@@ -39,8 +39,6 @@ Prerequisites
 * AMQ Online is installed in the cluster
 
 This section describes how to deploy the showcase in an Integreatly cluster from the OpenShift Service Catalog.
-
-* Create a new project or namespace in the OpenShift Web Console
 * In the new project use the 'Search Catalog' bar to search for 'Data Sync Showcase'
 * The form is already prefilled with all of the necessary values.
 * The only field you might want to change is `AMQ Messaging User Password`.

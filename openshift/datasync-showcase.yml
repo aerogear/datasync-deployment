@@ -7,7 +7,7 @@ labels:
 metadata:
   name: datasync-showcase-server
   annotations:
-    openshift.io/display-name: Data Sync Showcase 
+    openshift.io/display-name: Data Sync Showcase
     description: |-
         This template allows for the deployment of the Data Sync Example Showcase App.
         The Data Sync Example Showcase App contains an example Node.js server implementation that 
@@ -230,12 +230,6 @@ objects:
   status:
     lastVersion: 0
 - apiVersion: v1
-  kind: Secret
-  metadata:
-    name: showcase-mqtt-credentials
-  data:
-    MQTT_PASSWORD: ${AMQ_USER_PASSWORD}
-- apiVersion: v1
   kind: DeploymentConfig
   metadata:
     annotations:
@@ -264,17 +258,8 @@ objects:
         - env:
             - name: DB_HOSTNAME
               value: "${DATABASE_SERVICE_NAME}"
-            - name: MQTT_USERNAME
-              value: "${AMQ_USERNAME}"
-            - name: MQTT_PORT
-              value: "5671"
-            - name: MQTT_PROTOCOL
-              value: "tls"
-            - name: MQTT_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: showcase-mqtt-credentials
-                  key: MQTT_PASSWORD
+            - name: MQTT_HOST
+              value: mosquitto-mqtt-broker
           image: ionic-showcase-server:latest
           name: ionic-showcase-server
           ports:
@@ -337,33 +322,66 @@ objects:
     to:
       kind: Service
       name: "${SERVER_SERVICE_NAME}"
-- apiVersion: enmasse.io/v1beta1
-  kind: AddressSpace
+
+- kind: DeploymentConfig
+  apiVersion: v1
+  name: mosquitto-mqtt-broker
   metadata:
-    name: showcase
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: ionic-showcase-server
+    name: mosquitto-mqtt-broker
   spec:
-    type: brokered
-    plan: brokered-single-broker
-- apiVersion: enmasse.io/v1beta1
-  kind: Address
+    replicas: 1
+    selector:
+      app: ionic-showcase-server
+      deploymentconfig: mosquitto-mqtt-broker
+    strategy:
+      resources: {}
+    template:
+      metadata:
+        annotations:
+          openshift.io/generated-by: OpenShiftNewApp
+        creationTimestamp: null
+        labels:
+          app: ionic-showcase-server
+          deploymentconfig: mosquitto-mqtt-broker
+      spec:
+        containers:
+          - name: mosquitto-mqtt-broker
+            image: eclipse-mosquitto:latest
+            ports:
+              - containerPort: 1883
+                protocol: TCP
+    strategy: 
+      type: Rolling
+    paused: false 
+    revisionHistoryLimit: 2 
+    minReadySeconds: 0
+
+- apiVersion: v1
+  kind: Service
   metadata:
-      name: showcase.tasks # must have be in format <address space name>.<queuename>
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: ionic-showcase-server
+    name: mosquitto-mqtt-broker
   spec:
-      address: tasks
-      type: topic
-      plan: brokered-topic
-- apiVersion: user.enmasse.io/v1beta1
-  kind: MessagingUser
-  metadata:
-    name: showcase.${AMQ_USERNAME}
-  spec:
-    username: ${AMQ_USERNAME}
-    authentication:
-      type: password
-      password: ${AMQ_USER_PASSWORD}
-    authorization:
-      - addresses: ["*"]
-        operations: ["send", "recv"]
+    ports:
+    - name: 1883-tcp
+      port: 1883
+      protocol: TCP
+      targetPort: 1883
+    selector:
+      app: ionic-showcase-server
+      deploymentconfig: mosquitto-mqtt-broker
+  status:
+    loadBalancer: {}
+
 parameters:
 - description: Maximum amount of memory the container can use.
   displayName: Memory Limit
@@ -401,11 +419,3 @@ parameters:
   displayName: Ionic Server Service name
   name: SERVER_SERVICE_NAME
   value: ionic-showcase-server
-- description: Messaging user created in AMQ Online. The showcase server will authenticate with AMQ as this user.
-  displayName: AMQ Messaging User Name
-  name: AMQ_USERNAME
-  value: showcase-messaging-user
-- description: Create your own password with `$ echo <password> | base64` - the default password is Password1
-  displayName: AMQ Messaging User Password
-  name: AMQ_USER_PASSWORD
-  value: UGFzc3dvcmQx # (base64 encoded) Password1
