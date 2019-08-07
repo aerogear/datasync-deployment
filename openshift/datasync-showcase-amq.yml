@@ -5,7 +5,7 @@ kind: Template
 labels:
   template: ionic-showcase-server
 metadata:
-  name: datasync-showcase-server
+  name: datasync-showcase-server-amq
   annotations:
     openshift.io/display-name: Data Sync Showcase With AMQ
     description: |-
@@ -156,79 +156,42 @@ objects:
       type: ImageChange
     - type: ConfigChange
   status: {}
+
 - apiVersion: v1
   kind: ImageStream
   metadata:
-    annotations:
-      openshift.io/generated-by: OpenShiftNewApp
-    creationTimestamp: null
-    labels:
-      app: ionic-showcase-server
-    name: node
-  spec:
-    lookupPolicy:
-      local: false
-    tags:
-    - annotations:
-        openshift.io/imported-from: node:8
-      from:
-        kind: DockerImage
-        name: node:8
-      generation: null
-      importPolicy: {}
-      name: "8"
-      referencePolicy:
-        type: ""
-  status:
-    dockerImageRepository: ""
-- apiVersion: v1
-  kind: ImageStream
-  metadata:
-    annotations:
-      openshift.io/generated-by: OpenShiftNewApp
-    creationTimestamp: null
     labels:
       app: ionic-showcase-server
     name: ionic-showcase-server
-  spec:
-    lookupPolicy:
-      local: false
-  status:
-    dockerImageRepository: ""
+
 - apiVersion: v1
   kind: BuildConfig
   metadata:
-    annotations:
-      openshift.io/generated-by: OpenShiftNewApp
-    creationTimestamp: null
     labels:
       app: ionic-showcase-server
     name: ionic-showcase-server
   spec:
-    nodeSelector: null
     output:
       to:
         kind: ImageStreamTag
         name: ionic-showcase-server:latest
-    postCommit: {}
-    resources: {}
     source:
       contextDir: server
       git:
         uri: https://github.com/aerogear/ionic-showcase
       type: Git
     strategy:
-      dockerStrategy:
+      sourceStrategy:
         from:
           kind: ImageStreamTag
-          name: node:8
-      type: Docker
+          namespace: openshift
+          name: nodejs:10
+      type: Source
     triggers:
     - type: ConfigChange
     - imageChange: {}
       type: ImageChange
-  status:
-    lastVersion: 0
+
 - apiVersion: v1
   kind: Secret
   metadata:
