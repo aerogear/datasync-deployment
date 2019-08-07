@@ -7,7 +7,7 @@ labels:
 metadata:
   name: datasync-showcase-server
   annotations:
-    openshift.io/display-name: Data Sync Showcase (test)
+    openshift.io/display-name: Data Sync Showcase
     description: |-
         This template allows for the deployment of the Data Sync Example Showcase App.
         The Data Sync Example Showcase App contains an example Node.js server implementation that 
