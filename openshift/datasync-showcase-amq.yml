@@ -300,6 +300,10 @@ objects:
     to:
       kind: Service
       name: "${SERVER_SERVICE_NAME}"
+    tls:
+      termination: edge
+      insecureEdgeTerminationPolicy: Allow
+
 - apiVersion: enmasse.io/v1beta1
   kind: AddressSpace
   metadata:
