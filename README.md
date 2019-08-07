@@ -20,7 +20,7 @@ Prerequisites
 There are a number of Data Sync OpenShift Templates available.
 
 * [Data Sync App](https://github.com/aerogear/datasync-deployment/blob/master/openshift/datasync-http.yml) - Deploys a custom built Data Sync Application. Uses Node s2i to build the image from source code.
-* [Data Sync Showcase](https://github.com/aerogear/datasync-deployment/blob/master/openshift/datasync-showcase.yml) - Deploys the server component from the [Ionic Showcase](https://github.com/aerogear/ionic-showcase) application. This includes a postgres storage, a Persistent Volume for file storage, and a Mosca MQTT Broker for a quick and simple getting started experience.
+* [Data Sync Showcase](https://github.com/aerogear/datasync-deployment/blob/master/openshift/datasync-showcase.yml) - Deploys the server component from the [Ionic Showcase](https://github.com/aerogear/ionic-showcase) application. This includes a postgres storage, a Persistent Volume for file storage, and a Mosquitto MQTT Broker for a quick and simple getting started experience.
 * [Data Sync Showcase With AMQ](https://github.com/aerogear/datasync-deployment/blob/master/openshift/datasync-showcase-amq.yml) - Deploys the server component from the [Ionic Showcase](https://github.com/aerogear/ionic-showcase) application. This includes a postgres storage, a Persistent Volume for file storage, and resources in AMQ Online for subscriptions.
 
 The templates can be installed into a given namespace.
