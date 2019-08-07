@@ -284,6 +284,9 @@ objects:
     to:
       kind: Service
       name: "${SERVER_SERVICE_NAME}"
+    tls:
+      termination: edge
+      insecureEdgeTerminationPolicy: Allow
 
 - kind: DeploymentConfig
   apiVersion: v1
