@@ -1,0 +1,139 @@
+---
+kind: Template
+apiVersion: v1
+metadata:
+  name: grafana
+  annotations:
+    "openshift.io/display-name": Grafana
+    description: |
+      Grafana server with patched Prometheus datasource.
+    iconClass: fa fa-cogs
+    tags: "metrics,monitoring,grafana,prometheus"
+parameters:
+- description: The location of the grafana image
+  name: IMAGE_GRAFANA
+  value: registry.redhat.io/openshift3/grafana:v3.11
+- description: The location of the proxy image
+  name: IMAGE_PROXY
+  value: docker.io/openshift/oauth-proxy:v1.1.0
+- description: The session secret for the proxy
+  name: SESSION_SECRET
+  generate: expression
+  from: "[a-zA-Z0-9]{43}"
+objects:
+- apiVersion: v1
+  kind: ServiceAccount
+  metadata:
+    name: grafana
+    annotations:
+      serviceaccounts.openshift.io/oauth-redirectreference.primary: '{"kind":"OAuthRedirectReference","apiVersion":"v1","reference":{"kind":"Route","name":"grafana"}}'
+- apiVersion: route.openshift.io/v1
+  kind: Route
+  metadata:
+    name: grafana
+  spec:
+    to:
+      name: grafana
+    tls:
+      termination: edge
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: grafana
+    labels:
+      metrics-infra: grafana
+      name: grafana
+  spec:
+    ports:
+    - name: grafana
+      port: 443
+      targetPort: 4181
+    selector:
+      app: grafana
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    name: grafana-data-claim
+  spec:
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: 1Gi
+# Deploy Grafana behind an oauth proxy
+- apiVersion: apps.openshift.io/v1
+  kind: DeploymentConfig
+  metadata:
+    labels:
+      app: grafana
+    name: grafana
+  spec:
+    replicas: 1
+    selector:
+      app: grafana
+    template:
+      metadata:
+        labels:
+          app: grafana
+        name: grafana
+      spec:
+        serviceAccountName: grafana
+        containers:
+        - name: oauth-proxy
+          image: ${IMAGE_PROXY}
+          imagePullPolicy: IfNotPresent
+          ports:
+          - containerPort: 4181
+            name: web
+          args:
+          - -http-address=0.0.0.0:4181
+          - -https-address=
+          - -upstream=http://localhost:3000
+          - -provider=openshift
+          - --openshift-service-account=grafana
+          - '-openshift-sar={"resource": "namespaces", "verb": "get", "resourceName": "$(NAMESPACE)", "namespace": "$(NAMESPACE)"}'
+          - -cookie-secret=SECRET
+          - -skip-auth-regex=^/metrics,/api/datasources,/api/dashboards
+
+        - name: grafana
+          image: ${IMAGE_GRAFANA}
+          args:
+          - -config=/etc/grafana/grafana.ini
+          ports:
+          - name: grafana-http
+            containerPort: 3000
+          volumeMounts:
+            - mountPath: /etc/grafana
+              name: 'grafanaconfig'
+            - mountPath: /etc/grafana/conf/provisioning/datasources
+              name: 'grafanadatasources'
+            - mountPath: /etc/grafana/conf/provisioning/dashboards
+              name: 'grafanaproviders'
+            - mountPath: /etc/grafana-dashboards
+              name: 'grafanadashboards'
+            - mountPath: /var/lib/grafana
+              name: grafana-data
+            - mountPath: /var/log/grafana
+              name: grafana-log
+        volumes:
+          - name: 'grafanaconfig'
+            configMap:
+              defaultMode: 420
+              name: 'grafana-config'
+          - name: 'grafanadatasources'
+            configMap:
+              defaultMode: 420
+              name: 'grafana-datasources'
+          - name: 'grafanadashboards'
+            configMap:
+              defaultMode: 420
+              name: 'grafana-dashboards'
+          - name: 'grafanaproviders'
+            configMap:
+              defaultMode: 420
+              name: 'grafana-providers'
+          - name: grafana-data
+            persistentVolumeClaim:
+              claimName: grafana-data-claim
+          - name: grafana-log
+            emptyDir: {}
