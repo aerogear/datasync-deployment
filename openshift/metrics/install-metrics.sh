@@ -1,7 +1,4 @@
 #!/bin/bash
-
-# NOTE: this only supports RHMI for now as all required CRDs used by the operator are already installed. If you are not using RHMI, you should check https://github.com/integr8ly/application-monitoring-operator for installation instructions
-
 cd "$(dirname "$0")" || exit 1
 
 NAMESPACE=`oc project -q`
