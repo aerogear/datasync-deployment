@@ -59,6 +59,7 @@ objects:
     type: ClusterIP
   status:
     loadBalancer: {}
+
 - apiVersion: v1
   kind: PersistentVolumeClaim
   metadata:
@@ -71,6 +72,20 @@ objects:
     resources:
       requests:
         storage: "${VOLUME_CAPACITY}"
+
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    labels:
+      app: ionic-showcase-server
+    name: sync-files-storage
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: "1Gi"
+
 - apiVersion: v1
   kind: DeploymentConfig
   metadata:
@@ -234,7 +249,7 @@ objects:
         volumes:
         - name: files-storage
           persistentVolumeClaim:
-            claimName: postgresql
+            claimName: sync-files-storage
     test: false
     triggers:
     - type: ConfigChange
@@ -303,8 +318,6 @@ objects:
     selector:
       app: ionic-showcase-server
       deploymentconfig: mosquitto-mqtt-broker
-    strategy:
-      resources: {}
     template:
       metadata:
         annotations:
@@ -320,7 +333,8 @@ objects:
             ports:
               - containerPort: 1883
                 protocol: TCP
-    strategy: 
+    strategy:
+      resources: {}
       type: Rolling
     paused: false 
     revisionHistoryLimit: 2 
