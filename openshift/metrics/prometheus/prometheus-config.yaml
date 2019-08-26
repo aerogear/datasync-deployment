@@ -30,7 +30,7 @@ scrape_configs:
     - role: service
       namespaces:
         names:
-          - app-monitoring
+          - showcase-sync-server
     # we use relabeling mechanism of Prometheus to decide if a service is a scrape target.
     # same mechanism is used to find out the metrics endpoint path.
     # see example config here: https://github.com/prometheus/prometheus/blob/master/documentation/examples/prometheus-kubernetes.yml
@@ -68,7 +68,7 @@ scrape_configs:
     - role: service
       namespaces:
         names:
-          - app-monitoring
+          - showcase-sync-server
     relabel_configs: 
       - action: keep
         regex: \/.*
@@ -102,7 +102,7 @@ scrape_configs:
     - role: pod
       namespaces:
         names:
-          - app-monitoring
+          - showcase-sync-server
     relabel_configs:
       - action: keep
         regex: (.+)
