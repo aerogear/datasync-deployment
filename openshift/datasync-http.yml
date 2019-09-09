@@ -15,6 +15,7 @@ metadata:
     openshift.io/documentation-url: https://docs.aerogear.org/aerogear/latest/data-sync.html#sync-server-openshift
     openshift.io/support-url: https://access.redhat.com
     template.openshift.io/bindable: 'false'
+    aerogear.org/datasync-template-version: '0.7.3'
 message: 'The following service(s) have been created in your project: ${NAME}.'
 labels:
   template: data-sync-server-app

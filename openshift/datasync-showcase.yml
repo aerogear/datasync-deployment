@@ -19,6 +19,7 @@ metadata:
     openshift.io/documentation-url: https://docs.aerogear.org/aerogear/latest/data-sync.html#sync-server-openshift
     openshift.io/support-url: https://access.redhat.com
     template.openshift.io/bindable: 'false'
+    aerogear.org/datasync-template-version: '0.7.3'
 objects:
 - apiVersion: v1
   kind: Secret
@@ -221,7 +222,7 @@ objects:
       app: ionic-showcase-server
       deploymentconfig: ionic-showcase-server
     strategy:
-      resources: {}
+      type: Recreate
     template:
       metadata:
         annotations:
