@@ -219,8 +219,9 @@ objects:
         - name: files-storage
           persistentVolumeClaim:
             claimName: sync-files-storage
-        - configMap:
-          name: webapp-config
+        - name: webapp-config
+          configMap:
+            name: webapp-config
     test: false
     triggers:
     - type: ConfigChange
@@ -332,8 +333,7 @@ objects:
 
       window.showcaseConfig = {
         "backend": {
-          "serverUrl": "/graphql",
-          "wsServerUrl": "/graphql"
+          "serverUrl": "/graphql"
         }
       };
 
