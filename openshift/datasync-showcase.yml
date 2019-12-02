@@ -334,7 +334,7 @@ objects:
       window.showcaseConfig = {
         "backend": {
           "serverUrl": "/graphql",
-          "wsServerUrl": "wss://" + window.location.hostname + "/graphql"
+          "wsServerUrl": ((window.location.protocol === "https:") ? "wss://" : "ws://") + window.location.hostname + "/graphql"
         }
       };
 
