@@ -172,42 +172,6 @@ objects:
       type: ImageChange
     - type: ConfigChange
   status: {}
-
-- apiVersion: v1
-  kind: ImageStream
-  metadata:
-    labels:
-      app: ionic-showcase-server
-    name: ionic-showcase-server
-
-- apiVersion: v1
-  kind: BuildConfig
-  metadata:
-    labels:
-      app: ionic-showcase-server
-    name: ionic-showcase-server
-  spec:
-    output:
-      to:
-        kind: ImageStreamTag
-        name: ionic-showcase-server:latest
-    source:
-      contextDir: server
-      git:
-        uri: https://github.com/aerogear/ionic-showcase
-      type: Git
-    strategy:
-      sourceStrategy:
-        from:
-          kind: ImageStreamTag
-          namespace: openshift
-          name: nodejs:10
-      type: Source
-    triggers:
-    - type: ConfigChange
-    - imageChange: {}
-      type: ImageChange
-
 - apiVersion: v1
   kind: Secret
   metadata:
@@ -254,7 +218,7 @@ objects:
                 secretKeyRef:
                   name: showcase-mqtt-credentials
                   key: MQTT_PASSWORD
-          image: ionic-showcase-server:latest
+          image: docker.io/aerogear/voyager-server-example-task:latest
           name: ionic-showcase-server
           ports:
           - containerPort: 4000
@@ -263,21 +227,17 @@ objects:
           volumeMounts:
           - mountPath: /usr/src/app/files
             name: files-storage
+          - mountPath: /website/assets/config
+            name: webapp-config
         volumes:
         - name: files-storage
           persistentVolumeClaim:
             claimName: sync-files-storage
+        - configMap:
+          name: webapp-config
     test: false
     triggers:
     - type: ConfigChange
-    - imageChangeParams:
-        automatic: true
-        containerNames:
-        - ionic-showcase-server
-        from:
-          kind: ImageStreamTag
-          name: ionic-showcase-server:latest
-      type: ImageChange
   status:
     availableReplicas: 0
     latestVersion: 0
@@ -347,6 +307,20 @@ objects:
     authorization:
       - addresses: ["*"]
         operations: ["send", "recv"]
+- apiVersion: v1
+  kind: ConfigMap
+  metadata:
+    name: webapp-config
+  data:
+    config.js: |
+
+      // See ServicesConfig for format
+      window.showcaseConfig = {
+        "backend": {
+          "serverUrl": "http://localhost:4000/graphql",
+          "wsServerUrl": "ws://localhost:4000/graphql"
+        }
+      };
 parameters:
 - description: Maximum amount of memory the container can use.
   displayName: Memory Limit
