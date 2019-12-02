@@ -213,7 +213,7 @@ objects:
           volumeMounts:
           - mountPath: /usr/src/app/files
             name: files-storage
-          - mountPath: /website/assets/config
+          - mountPath: /usr/src/app/website/assets/config
             name: webapp-config
         volumes:
         - name: files-storage
