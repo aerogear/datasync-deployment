@@ -218,7 +218,7 @@ objects:
                 secretKeyRef:
                   name: showcase-mqtt-credentials
                   key: MQTT_PASSWORD
-          image: docker.io/aerogear/voyager-server-example-task:latest
+          image: docker.io/aerogear/voyager-server-example-task:0.11.0
           name: ionic-showcase-server
           ports:
           - containerPort: 4000
