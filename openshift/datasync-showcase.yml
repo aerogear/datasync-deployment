@@ -204,7 +204,7 @@ objects:
               value: "${DATABASE_SERVICE_NAME}"
             - name: MQTT_HOST
               value: mosquitto-mqtt-broker
-          image: docker.io/aerogear/voyager-server-example-task:latest
+          image: docker.io/aerogear/voyager-server-example-task:0.11.0
           name: ionic-showcase-server
           ports:
           - containerPort: 4000
