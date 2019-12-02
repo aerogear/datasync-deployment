@@ -317,7 +317,8 @@ objects:
 
       window.showcaseConfig = {
         "backend": {
-          "serverUrl": "/graphql"
+          "serverUrl": "/graphql",
+          "wsServerUrl": "wss://" + window.location.hostname + "/graphql"
         }
       };
 parameters:
