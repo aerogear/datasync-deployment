@@ -124,7 +124,7 @@ objects:
               secretKeyRef:
                 key: database-name
                 name: "${DATABASE_SERVICE_NAME}"
-          image: docker.io/aerogear/voyager-server-example-task:latest
+          image: " "
           imagePullPolicy: IfNotPresent
           livenessProbe:
             exec:
