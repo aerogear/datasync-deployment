@@ -172,6 +172,7 @@ objects:
       type: ImageChange
     - type: ConfigChange
   status: {}
+  
 - apiVersion: v1
   kind: DeploymentConfig
   metadata:
@@ -203,7 +204,7 @@ objects:
               value: "${DATABASE_SERVICE_NAME}"
             - name: MQTT_HOST
               value: mosquitto-mqtt-broker
-          image: ionic-showcase-server:latest
+          image: docker.io/aerogear/voyager-server-example-task:latest
           name: ionic-showcase-server
           ports:
           - containerPort: 4000
