@@ -43,6 +43,9 @@ objects:
     to:
       kind: Service
       name: "${NAME}"
+    tls:
+      termination: edge
+      insecureEdgeTerminationPolicy: Allow
 - kind: ImageStream
   apiVersion: v1
   metadata:
