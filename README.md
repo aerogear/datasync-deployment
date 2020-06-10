@@ -2,6 +2,9 @@
 
 Contains OpenShift templates for DataSync deployment
 
+> Note: This repository is no longer actively maintained. 
+All templates were moved to https://github.com/aerogear/datasync-starter/tree/master/.openshift
+
 
 ## Building Dockerfile
 
